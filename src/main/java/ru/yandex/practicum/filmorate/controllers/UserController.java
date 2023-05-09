@@ -17,6 +17,7 @@ public class UserController {
 
     Integer id = 0;
 
+
     @PostMapping("/users")
     public User postUser(@Valid  @RequestBody User user) {
         log.info("Получен запрос добавление пользователя " + user.getName());
