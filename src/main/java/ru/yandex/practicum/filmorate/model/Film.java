@@ -6,7 +6,6 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
-
 public class Film {
 
     Integer id;
@@ -14,7 +13,7 @@ public class Film {
     @NotBlank
     String name;
 
-    @Size(max = 200,message = "Описание свыше 200 символов")
+    @Size(max = 200, message = "Описание свыше 200 символов")
     String description;
 
     @MinimumDate

@@ -14,28 +14,29 @@ public class UserController {
     HashMap<Integer, User> dataUsers = new HashMap<>();
     private final Logger log = LoggerFactory.getLogger(UserController.class);
     Integer id = 0;
+
     @PostMapping("/users")
-    public User postUser(@Valid  @RequestBody User user) {
+    public User postUser(@Valid @RequestBody User user) {
         log.info("Получен запрос добавление пользователя " + user.getName());
         ++id;
         if (user.getName() == null)
             user.setName(user.getLogin());
         user.setId(id);
-        dataUsers.put(id,user);
+        dataUsers.put(id, user);
         return user;
     }
+
     @PutMapping("/users")
     public User putUser(@Valid @RequestBody User user) {
         log.info("Получен запрос на обновление пользователя " + user.getName());
         if (dataUsers.containsKey(user.getId())) {
             dataUsers.put(user.getId(), user);
             return user;
-        }
-        else throw new RuntimeException();
+        } else throw new RuntimeException();
     }
+
     @GetMapping("/users")
-    public ArrayList<User> getAllUser ()
-    {
+    public ArrayList<User> getAllUser() {
         log.info("Получен запрос на получение списка всех пользователей.");
         return new ArrayList<>(dataUsers.values());
     }
