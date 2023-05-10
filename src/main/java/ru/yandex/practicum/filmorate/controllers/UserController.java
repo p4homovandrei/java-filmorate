@@ -16,8 +16,6 @@ public class UserController {
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     Integer id = 0;
-
-
     @PostMapping("/users")
     public User postUser(@Valid  @RequestBody User user) {
         log.info("Получен запрос добавление пользователя " + user.getName());
