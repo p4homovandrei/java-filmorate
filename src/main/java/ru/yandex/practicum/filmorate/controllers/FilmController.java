@@ -7,14 +7,13 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+
 
 @RestController
 public class FilmController {
 
-    private final static Logger log = LoggerFactory.getLogger(FilmController.class);
+    private final Logger log = LoggerFactory.getLogger(FilmController.class);
     HashMap<Integer, Film> dataFilms = new HashMap<>();
 
     Integer id = 0;
@@ -33,9 +32,10 @@ public class FilmController {
         log.info("Получен запрос на обновление фильма " + film.getName());
         if (dataFilms.containsKey(film.getId())) {
             dataFilms.put(film.getId(), film);
-        return film;
+            return film;
+        } else {
+            throw new RuntimeException();
         }
-        else throw new RuntimeException();
     }
 
     @GetMapping("/films")
