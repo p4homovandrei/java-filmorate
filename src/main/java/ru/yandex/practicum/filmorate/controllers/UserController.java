@@ -14,7 +14,6 @@ import java.util.HashMap;
 public class UserController {
     HashMap<Integer, User> dataUsers = new HashMap<>();
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
-
     Integer id = 0;
     @PostMapping("/users")
     public User postUser(@Valid  @RequestBody User user) {
