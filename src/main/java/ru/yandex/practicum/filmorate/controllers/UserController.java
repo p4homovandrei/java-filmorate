@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
@@ -13,7 +12,7 @@ import java.util.HashMap;
 @RestController
 public class UserController {
     HashMap<Integer, User> dataUsers = new HashMap<>();
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     Integer id = 0;
     @PostMapping("/users")
     public User postUser(@Valid  @RequestBody User user) {
