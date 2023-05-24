@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.NoFoundDataException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -15,8 +14,7 @@ public class UserService {
 
 
     public User addUser(User user) {
-        if (user.getName().isBlank())
-            user.setName(user.getLogin());
+        if (user.getName().isBlank()) user.setName(user.getLogin());
         return storage.saveUser(user);
     }
 

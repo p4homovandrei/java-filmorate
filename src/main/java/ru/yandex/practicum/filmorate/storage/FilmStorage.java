@@ -14,6 +14,5 @@ public interface FilmStorage {
 
     List<Film> getAllFilms();
 
-
     Set<Film> getPopularFilms(String count);
 }

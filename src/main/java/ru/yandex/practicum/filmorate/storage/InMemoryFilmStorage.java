@@ -49,16 +49,16 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Set<Film> getPopularFilms(String count) {
-        Integer i=0;
+        Integer i = 0;
         Integer j = Integer.valueOf(count);
-        Set <Film> allfilmssorted = new TreeSet<>(dataFilms.values());
-        Set <Film> sizedfilms = new TreeSet<>();
-        for(Film film : allfilmssorted){
-            if(j.equals(i)){
+        Set<Film> allfilmssorted = new TreeSet<>(dataFilms.values());
+        Set<Film> sizedfilms = new TreeSet<>();
+        for (Film film : allfilmssorted) {
+            if (j.equals(i)) {
                 break;
             }
             sizedfilms.add(film);
-             ++i;
+            ++i;
         }
         return sizedfilms;
     }

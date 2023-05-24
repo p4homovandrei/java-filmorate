@@ -1,14 +1,12 @@
 package ru.yandex.practicum.filmorate.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.NoFoundDataException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
-import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -53,16 +51,13 @@ public class FilmController {
     }
 
     @GetMapping("/films/popular")
-    public Set<Film> getPopularFilm (@RequestParam(required = false,defaultValue = "10") String count) {
+    public Set<Film> getPopularFilm(@RequestParam(required = false, defaultValue = "10") String count) {
         return filmService.popularFilm(count);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler
     public Map<String, String> handle(final NoFoundDataException e) {
-        return Map.of(
-                "error", "Данные не найдены.",
-                "errorMessage", e.getMessage()
-        );
+        return Map.of("error", "Данные не найдены.", "errorMessage", e.getMessage());
     }
 }

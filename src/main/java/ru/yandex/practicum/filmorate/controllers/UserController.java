@@ -61,9 +61,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler
     public Map<String, String> handle(final NoFoundDataException e) {
-        return Map.of(
-                "error", "Ошибка с параметром count.",
-                "errorMessage", e.getMessage()
-        );
+        return Map.of("error", "Ошибка с параметром count.", "errorMessage", e.getMessage());
     }
 }

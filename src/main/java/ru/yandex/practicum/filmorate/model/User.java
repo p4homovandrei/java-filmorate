@@ -15,14 +15,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class User {
     Integer id;
-    @Email
-    String email;
-    @NotBlank
-    String login;
+    @Email String email;
+    @NotBlank String login;
 
     String name;
-    @PastOrPresent
-    LocalDate birthday;
+    @PastOrPresent LocalDate birthday;
 
     Set<Long> idFriends = new HashSet<>();
 
@@ -30,8 +27,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.login = login;
-        if (name.isBlank())
-            this.name = login;
+        if (name.isBlank()) this.name = login;
         else this.name = name;
         this.birthday = birthday;
     }

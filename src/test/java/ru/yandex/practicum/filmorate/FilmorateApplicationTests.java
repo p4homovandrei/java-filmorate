@@ -9,16 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.yandex.practicum.filmorate.model.Film;
 import java.time.LocalDate;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,7 +27,6 @@ class FilmorateApplicationTests {
 	}
 	@Test
 	void simpleTest() throws Exception {
-		/*mockMvc.perform(get("/films")).andExpect(status().isOk());*/
 		LocalDate date = LocalDate.of(12,12,12);
 		Film film = new  Film(1,"sd","asd", date,230L);
 		mockMvc.perform( MockMvcRequestBuilders
