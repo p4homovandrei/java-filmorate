@@ -11,10 +11,7 @@ import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -39,23 +36,32 @@ public class FilmController {
     public List<Film> getAllFilms() {
         return filmService.getAllFilms();
     }
+
     @PutMapping("/films/{id}/like/{userId}")
-    public void likeFilm(@PathVariable String id,@PathVariable String userId){
-        filmService.likeFilm(id,userId);
+    public void likeFilm(@PathVariable String id, @PathVariable String userId) {
+        filmService.likeFilm(id, userId);
     }
+
     @DeleteMapping("/films/{id}/like/{userId}")
-    public void unLikeFilm(@PathVariable String id,@PathVariable String userId){
-        filmService.unLikeFilm(id,userId);
+    public void unLikeFilm(@PathVariable String id, @PathVariable String userId) {
+        filmService.unLikeFilm(id, userId);
     }
+
     @GetMapping("/films/{id}")
-    public Film getFilm(@PathVariable String id){
+    public Film getFilm(@PathVariable String id) {
         return filmService.getFilm(id);
     }
+
+    @GetMapping("/films/popular")
+    public Set<Film> getPopularFilm (@RequestParam(required = false,defaultValue = "10") String count) {
+        return filmService.popularFilm(count);
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler
     public Map<String, String> handle(final NoFoundDataException e) {
         return Map.of(
-                "error", "Ошибка с параметром count.",
+                "error", "Данные не найдены.",
                 "errorMessage", e.getMessage()
         );
     }

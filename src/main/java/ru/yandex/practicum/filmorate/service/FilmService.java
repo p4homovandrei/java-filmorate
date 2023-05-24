@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FilmService {
@@ -13,7 +13,8 @@ public class FilmService {
     FilmStorage fstorage;
     @Autowired
     UserService ustorage;
-    public Film addFilm (Film film){
+
+    public Film addFilm(Film film) {
         Film rfilm = fstorage.saveFilm(film);
         return rfilm;
     }
@@ -32,16 +33,18 @@ public class FilmService {
         Film film = fstorage.getFilm(Integer.valueOf(id));
         film.getIdUsersLike().add(Long.valueOf(userId));
     }
-    public void unLikeFilm(String id , String userId){
+
+    public void unLikeFilm(String id, String userId) {
         ustorage.getUser(userId);
         Film film = fstorage.getFilm(Integer.valueOf(id));
         film.getIdUsersLike().remove(Long.valueOf(userId));
     }
 
-    public Film getFilm (String id){
-       return fstorage.getFilm(Integer.valueOf(id));
+    public Film getFilm(String id) {
+        return fstorage.getFilm(Integer.valueOf(id));
     }
-  /*  public List<Film> getMostPopularFilm(String count){
 
-    }*/
+    public Set<Film> popularFilm(String count) {
+        return fstorage.getPopularFilms(count);
+    }
 }

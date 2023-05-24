@@ -5,16 +5,16 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.NoFoundDataException;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Component
-public class InMemoryFilmStorage implements FilmStorage{
+public class InMemoryFilmStorage implements FilmStorage {
 
     HashMap<Integer, Film> dataFilms = new HashMap<>();
 
+
     Integer id = 0;
+
     @Override
     public Film saveFilm(Film film) {
         ++id;
@@ -33,21 +33,33 @@ public class InMemoryFilmStorage implements FilmStorage{
         }
     }
 
-    @Override
-    public Film deleteFilm(Integer Id) {
-        return null;
-    }
 
     @Override
     public Film getFilm(Integer id) {
         if (dataFilms.containsKey(id)) {
             return dataFilms.get(id);
-        }
-        else throw new NoFoundDataException("Фильм не найден.");
+        } else throw new NoFoundDataException("Фильм не найден.");
     }
 
     @Override
     public ArrayList<Film> getAllFilms() {
         return new ArrayList<>(dataFilms.values());
+    }
+
+
+    @Override
+    public Set<Film> getPopularFilms(String count) {
+        Integer i=0;
+        Integer j = Integer.valueOf(count);
+        Set <Film> allfilmssorted = new TreeSet<>(dataFilms.values());
+        Set <Film> sizedfilms = new TreeSet<>();
+        for(Film film : allfilmssorted){
+            if(j.equals(i)){
+                break;
+            }
+            sizedfilms.add(film);
+             ++i;
+        }
+        return sizedfilms;
     }
 }

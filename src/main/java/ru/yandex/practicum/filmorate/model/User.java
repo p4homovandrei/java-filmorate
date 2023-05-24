@@ -24,7 +24,7 @@ public class User {
     @PastOrPresent
     LocalDate birthday;
 
-    Set<Long> idFriends;
+    Set<Long> idFriends = new HashSet<>();
 
     public User(Integer id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
@@ -34,6 +34,5 @@ public class User {
             this.name = login;
         else this.name = name;
         this.birthday = birthday;
-        idFriends = new HashSet<>();
     }
 }

@@ -9,23 +9,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class Film {
+public class Film implements Comparable {
 
     Integer id;
 
-    @NotBlank
-    String name;
+    @NotBlank String name;
 
-    @Size(max = 200, message = "Описание свыше 200 символов")
-    String description;
+    @Size(max = 200, message = "Описание свыше 200 символов") String description;
 
     @MinimumDate
     LocalDate releaseDate;
 
-    @Positive
-    Long duration;
+    @Positive Long duration;
 
     Set<Long> idUsersLike;
+
     public Film(Integer id, String name, String description, LocalDate releaseDate, Long duration) {
         this.id = id;
         this.name = name;
@@ -33,5 +31,11 @@ public class Film {
         this.releaseDate = releaseDate;
         this.duration = duration;
         idUsersLike = new HashSet<>();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Film film = (Film) o;
+        return film.getIdUsersLike().size() - this.getIdUsersLike().size();
     }
 }

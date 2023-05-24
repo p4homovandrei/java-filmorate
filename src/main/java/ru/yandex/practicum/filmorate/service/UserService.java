@@ -13,27 +13,24 @@ public class UserService {
     @Autowired
     UserStorage storage;
 
-    void addFriend(User user)
-    {
-        /*storage.getUser()
-        storage.saveUser(userasd);*/
-    }
 
     public User addUser(User user) {
         if (user.getName().isBlank())
             user.setName(user.getLogin());
         return storage.saveUser(user);
     }
-    public User updateUser(User user){
+
+    public User updateUser(User user) {
         return storage.updateUser(user);
     }
 
     public List<User> getAllUsers() {
         return storage.getAllUsers();
     }
-    public void addUsersFriend(String id ,String friendId){
+
+    public void addUsersFriend(String id, String friendId) {
         Integer uId = Integer.valueOf(id);
-        Integer fId= Integer.valueOf(friendId);
+        Integer fId = Integer.valueOf(friendId);
         User user1 = storage.getUser(uId);
         User user2 = storage.getUser(fId);
         user1.getIdFriends().add(Long.valueOf(fId));
@@ -49,32 +46,32 @@ public class UserService {
 
 
     public List<User> getAllFriendUsers(String id) {
-        List <User> list = new ArrayList<>();
+        List<User> list = new ArrayList<>();
         Set<Long> idfriends = storage.getUser(Integer.valueOf(id)).getIdFriends();
-        if (idfriends.isEmpty()){
+        if (idfriends.isEmpty()) {
             return list;
         }
-        for(Long iid :idfriends){
+        for (Long iid : idfriends) {
             list.add(storage.getUser(Integer.valueOf(String.valueOf(iid))));
         }
         return list;
     }
 
     public User getUser(String id) {
-       return storage.getUser(Integer.valueOf(id));
+        return storage.getUser(Integer.valueOf(id));
     }
 
     public Set<User> getCommonFriend(String id, String otherId) {
-        List <User> firstUserList = this.getAllFriendUsers(id);
-        List <User> secondUserList = this.getAllFriendUsers(otherId);
-        Set <User> commonFriends = new HashSet<>();
-        for(User user : firstUserList){
-            for(User otherUser: secondUserList){
-                if(user.getId().equals(otherUser.getId())){
+        List<User> firstUserList = this.getAllFriendUsers(id);
+        List<User> secondUserList = this.getAllFriendUsers(otherId);
+        Set<User> commonFriends = new HashSet<>();
+        for (User user : firstUserList) {
+            for (User otherUser : secondUserList) {
+                if (user.getId().equals(otherUser.getId())) {
                     commonFriends.add(otherUser);
                 }
             }
         }
-        return  commonFriends;
+        return commonFriends;
     }
 }

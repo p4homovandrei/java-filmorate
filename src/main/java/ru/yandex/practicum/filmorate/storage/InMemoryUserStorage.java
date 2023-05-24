@@ -29,17 +29,12 @@ public class InMemoryUserStorage implements UserStorage {
         } else throw new RuntimeException();
     }
 
-    @Override
-    public User deleteUser(Integer id) {
-        return null;
-    }
 
     @Override
     public User getUser(Integer id) {
         if (dataUsers.containsKey(id)) {
             return dataUsers.get(id);
-        }
-        else throw new NoFoundDataException("Пользователь не найден.");
+        } else throw new NoFoundDataException("Пользователь не найден.");
     }
 
     @Override
@@ -48,10 +43,9 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public boolean containsUser(Integer id){
-        if(dataUsers.containsKey(id)){
+    public boolean containsUser(Integer id) {
+        if (dataUsers.containsKey(id)) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 }
