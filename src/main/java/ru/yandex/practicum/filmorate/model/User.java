@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
+import ru.yandex.practicum.filmorate.model.attribute.Friends;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -15,16 +16,13 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class User {
     private Integer id;
-    @Email
-    private String email;
-    @NotBlank
-    private String login;
+    private @Email String email;
+    private @NotBlank String login;
 
     private String name;
-    @PastOrPresent
-    private LocalDate birthday;
 
-    private Set<Long> idFriends = new HashSet<>();
+    private @PastOrPresent LocalDate birthday;
+    private Friends friends;
 
     public User(Integer id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
@@ -33,5 +31,6 @@ public class User {
         if (name.isBlank()) this.name = login;
         else this.name = name;
         this.birthday = birthday;
+        /*this.friends = new Friends();*/
     }
 }
