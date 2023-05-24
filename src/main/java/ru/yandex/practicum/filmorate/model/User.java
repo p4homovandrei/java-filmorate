@@ -6,6 +6,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +24,8 @@ public class User {
     @PastOrPresent
     LocalDate birthday;
 
+    Set<Long> idFriends;
+
     public User(Integer id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
         this.email = email;
@@ -30,5 +34,6 @@ public class User {
             this.name = login;
         else this.name = name;
         this.birthday = birthday;
+        idFriends = new HashSet<>();
     }
 }

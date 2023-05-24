@@ -5,6 +5,8 @@ import ru.yandex.practicum.filmorate.validate.Annotation.MinimumDate;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class Film {
@@ -23,11 +25,13 @@ public class Film {
     @Positive
     Long duration;
 
+    Set<Long> idUsersLike;
     public Film(Integer id, String name, String description, LocalDate releaseDate, Long duration) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+        idUsersLike = new HashSet<>();
     }
 }

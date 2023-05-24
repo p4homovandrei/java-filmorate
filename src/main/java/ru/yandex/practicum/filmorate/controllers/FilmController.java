@@ -2,45 +2,61 @@ package ru.yandex.practicum.filmorate.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.filmorate.exception.NoFoundDataException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
 public class FilmController {
 
-    private final Logger log = LoggerFactory.getLogger(FilmController.class);
-    HashMap<Integer, Film> dataFilms = new HashMap<>();
-
-    Integer id = 0;
+    @Autowired
+    FilmService filmService;
 
     @PostMapping("/films")
     public Film postFilm(@Valid @RequestBody Film film) {
-        log.info("Получен запрос на добавление фильма " + film.getName());
-        ++id;
-        film.setId(id);
-        dataFilms.put(id, film);
-        return film;
+        Film rFilm = filmService.addFilm(film);
+        return rFilm;
     }
 
     @PutMapping("/films")
     public Film putFilm(@Valid @RequestBody Film film) {
-        log.info("Получен запрос на обновление фильма " + film.getName());
-        if (dataFilms.containsKey(film.getId())) {
-            dataFilms.put(film.getId(), film);
-            return film;
-        } else {
-            throw new RuntimeException();
-        }
+        Film rFilm = filmService.updateFilm(film);
+        return rFilm;
     }
 
     @GetMapping("/films")
-    public ArrayList<Film> getAllFilms() {
-        log.info("Получен запрос на получение списка фильмов.");
-        return new ArrayList<>(dataFilms.values());
+    public List<Film> getAllFilms() {
+        return filmService.getAllFilms();
+    }
+    @PutMapping("/films/{id}/like/{userId}")
+    public void likeFilm(@PathVariable String id,@PathVariable String userId){
+        filmService.likeFilm(id,userId);
+    }
+    @DeleteMapping("/films/{id}/like/{userId}")
+    public void unLikeFilm(@PathVariable String id,@PathVariable String userId){
+        filmService.unLikeFilm(id,userId);
+    }
+    @GetMapping("/films/{id}")
+    public Film getFilm(@PathVariable String id){
+        return filmService.getFilm(id);
+    }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    public Map<String, String> handle(final NoFoundDataException e) {
+        return Map.of(
+                "error", "Ошибка с параметром count.",
+                "errorMessage", e.getMessage()
+        );
     }
 }
