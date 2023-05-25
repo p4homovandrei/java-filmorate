@@ -31,13 +31,13 @@ public class FilmService {
     public void likeFilm(String id, String userId) {
         ustorage.getUser(userId);
         Film film = fstorage.getFilm(Integer.valueOf(id));
-        film.getIdUsersLike().add(Long.valueOf(userId));
+        film.getIdUsersLike().add(Integer.valueOf(userId));
     }
 
     public void unLikeFilm(String id, String userId) {
         ustorage.getUser(userId);
         Film film = fstorage.getFilm(Integer.valueOf(id));
-        film.getIdUsersLike().remove(Long.valueOf(userId));
+        film.getIdUsersLike().remove(Integer.valueOf(userId));
     }
 
     public Film getFilm(String id) {

@@ -10,7 +10,7 @@ import java.util.*;
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
 
-    HashMap<Integer, Film> dataFilms = new HashMap<>();
+    Map<Integer, Film> dataFilms = new TreeMap<>();
 
 
     Integer id = 0;

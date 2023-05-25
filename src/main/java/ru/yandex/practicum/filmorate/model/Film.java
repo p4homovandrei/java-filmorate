@@ -22,7 +22,7 @@ public class Film implements Comparable {
 
     @Positive Long duration;
 
-    Set<Long> idUsersLike;
+    Set<Integer> idUsersLike = new HashSet<>();;
 
     public Film(Integer id, String name, String description, LocalDate releaseDate, Long duration) {
         this.id = id;
@@ -30,12 +30,15 @@ public class Film implements Comparable {
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
-        idUsersLike = new HashSet<>();
     }
 
     @Override
     public int compareTo(Object o) {
         Film film = (Film) o;
-        return film.getIdUsersLike().size() - this.getIdUsersLike().size();
+        int result = film.getIdUsersLike().size() - this.getIdUsersLike().size();
+        if (result == 0) {
+            result = this.id.compareTo(film.id);
+        }
+        return result;
     }
 }
