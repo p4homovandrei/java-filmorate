@@ -22,7 +22,7 @@ public class Film implements Comparable {
 
     @Positive Long duration;
 
-    Set<Integer> idUsersLike = new HashSet<>();;
+    Set<Integer> idUsersLike = new HashSet<>();
 
     public Film(Integer id, String name, String description, LocalDate releaseDate, Long duration) {
         this.id = id;
