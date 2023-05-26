@@ -11,16 +11,18 @@ import java.util.Set;
 @Data
 public class Film implements Comparable {
 
-    Integer id;
+    private Integer id;
+    @NotBlank
+    private String name;
 
-    @NotBlank String name;
-
-    @Size(max = 200, message = "Описание свыше 200 символов") String description;
+    @Size(max = 200, message = "Описание свыше 200 символов")
+    private String description;
 
     @MinimumDate
-    LocalDate releaseDate;
+    private LocalDate releaseDate;
 
-    @Positive Long duration;
+    @Positive
+    private Long duration;
 
     Set<Integer> idUsersLike = new HashSet<>();
 

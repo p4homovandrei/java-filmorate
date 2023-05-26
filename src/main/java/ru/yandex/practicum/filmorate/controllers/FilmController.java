@@ -15,8 +15,13 @@ import java.util.*;
 @RestController
 public class FilmController {
 
+
+    private FilmService filmService;
+
     @Autowired
-    FilmService filmService;
+    public FilmController(FilmService filmService) {
+        this.filmService = filmService;
+    }
 
     @PostMapping("/films")
     public Film postFilm(@Valid @RequestBody Film film) {

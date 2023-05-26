@@ -10,10 +10,10 @@ import java.util.*;
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
 
-    Map<Integer, Film> dataFilms = new TreeMap<>();
+    private Map<Integer, Film> dataFilms = new TreeMap<>();
 
 
-    Integer id = 0;
+    private static Integer id = 0;
 
     @Override
     public Film saveFilm(Film film) {

@@ -9,19 +9,23 @@ import java.util.*;
 
 @Service
 public class FilmService {
-    @Autowired
     FilmStorage fstorage;
-    @Autowired
+
     UserService ustorage;
 
+    @Autowired
+    public FilmService(FilmStorage fstorage, UserService ustorage) {
+        this.fstorage = fstorage;
+        this.ustorage = ustorage;
+    }
+
     public Film addFilm(Film film) {
-        Film rfilm = fstorage.saveFilm(film);
-        return rfilm;
+        return fstorage.saveFilm(film);
     }
 
     public Film updateFilm(Film film) {
-        Film rfilm = fstorage.updateFilm(film);
-        return rfilm;
+        return fstorage.updateFilm(film);
+
     }
 
     public List<Film> getAllFilms() {

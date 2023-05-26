@@ -9,9 +9,13 @@ import java.util.*;
 
 @Service
 public class UserService {
-    @Autowired
+
     UserStorage storage;
 
+    @Autowired
+    public UserService(UserStorage storage) {
+        this.storage = storage;
+    }
 
     public User addUser(User user) {
         if (user.getName().isBlank()) user.setName(user.getLogin());

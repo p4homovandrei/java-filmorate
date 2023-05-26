@@ -14,9 +14,13 @@ import java.util.Set;
 
 @RestController
 public class UserController {
-    @Autowired
-    UserService userService;
 
+    private UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/users")
     public User postUser(@Valid @RequestBody User user) {

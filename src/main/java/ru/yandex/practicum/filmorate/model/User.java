@@ -14,14 +14,17 @@ import java.util.Set;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class User {
-    Integer id;
-    @Email String email;
-    @NotBlank String login;
+    private Integer id;
+    @Email
+    private String email;
+    @NotBlank
+    private String login;
 
-    String name;
-    @PastOrPresent LocalDate birthday;
+    private String name;
+    @PastOrPresent
+    private LocalDate birthday;
 
-    Set<Long> idFriends = new HashSet<>();
+    private Set<Long> idFriends = new HashSet<>();
 
     public User(Integer id, String email, String login, String name, LocalDate birthday) {
         this.id = id;

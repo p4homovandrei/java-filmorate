@@ -10,8 +10,8 @@ import java.util.List;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
-    HashMap<Integer, User> dataUsers = new HashMap<>();
-    Integer id = 0;
+    private HashMap<Integer, User> dataUsers = new HashMap<>();
+    private static Integer id = 0;
 
     @Override
     public User saveUser(User user) {
