@@ -31,7 +31,7 @@ public class Film implements Comparable {
 
     private List<Integer> idUsersLike = new LinkedList<>();
 
-    private List<Genre> Genres;
+    private List<Genre> genres;
 
     private Mpa mpa;
 
