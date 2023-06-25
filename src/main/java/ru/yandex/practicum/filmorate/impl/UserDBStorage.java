@@ -59,7 +59,7 @@ public class UserDBStorage implements UserStorage {
                     userRows.getDate("BIRTHDAY").toLocalDate());
             return Optional.of(user);
         }
-        throw new NoFoundDataException("Пользователь с id =" + id + " не найден") ;
+        throw new NoFoundDataException("Пользователь с id =" + id + " не найден");
     }
 
     @Override
@@ -78,8 +78,8 @@ public class UserDBStorage implements UserStorage {
     @Override
     public void addFriend(String userId, String friendId) {
         jdbcTemplate.update("INSERT INTO FRIENDS (ID_USER1 , ID_USER2 ,STATUS_1) " +
-                        "VALUES (?,?,?);"
-                , userId, friendId, true);
+                        "VALUES (?,?,?);",
+                userId, friendId, true);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class UserDBStorage implements UserStorage {
     @Override
     public void deleteFriend(String userId, String friendId) {
         jdbcTemplate.update("DELETE FROM FRIENDS " +
-                        "WHERE ID_USER1 = ? AND ID_USER2 = ? ;" ,
-                userId, friendId);
+                        "WHERE ID_USER1 = ? AND ID_USER2 = ? ;",
+                        userId, friendId);
     }
 
 }
