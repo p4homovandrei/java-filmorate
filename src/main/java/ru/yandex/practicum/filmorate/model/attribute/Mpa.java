@@ -1,6 +1,8 @@
 package ru.yandex.practicum.filmorate.model.attribute;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -29,9 +31,4 @@ public class Mpa {
                 break;
         }
     }
-/* G,
-    PG,
-    PG13,
-    R,
-    NC17*/
 }
