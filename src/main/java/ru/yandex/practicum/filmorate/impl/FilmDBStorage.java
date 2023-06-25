@@ -12,10 +12,9 @@ import ru.yandex.practicum.filmorate.model.attribute.Genre;
 import ru.yandex.practicum.filmorate.model.attribute.Mpa;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.*;
-import java.util.List;
-import java.sql.Date;
 
 @Component
 public class FilmDBStorage implements FilmStorage {
@@ -113,7 +112,7 @@ public class FilmDBStorage implements FilmStorage {
         List<Optional<Film>> list = new ArrayList<>();
         while (userRows.next()) {
             list.add(getFilm(userRows.getInt("ID_FILMS")));
-        }//
+        }
         if (Integer.valueOf(count) - list.size() > 0) {
             Integer x = Integer.valueOf(count) - list.size();
             SqlRowSet u2 = jdbcTemplate.queryForRowSet("SELECT ID " + " FROM FILMS " + " ORDER BY ID ASC" + " LIMIT ?;", x);
