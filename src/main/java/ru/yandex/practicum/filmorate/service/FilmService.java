@@ -7,7 +7,8 @@ import ru.yandex.practicum.filmorate.model.attribute.Genre;
 import ru.yandex.practicum.filmorate.model.attribute.Mpa;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmService {
@@ -36,12 +37,14 @@ public class FilmService {
 
     public void likeFilm(String id, String userId) {
         userDB.getUser(userId);
-        filmDB.likeFilm(id,userId);
+        filmDB.likeFilm(id, userId);
     }
 
     public void unLikeFilm(String id, String userId) {
         userDB.getUser(userId);
-        filmDB.unlikeFilm(id,userId);}
+        filmDB.unlikeFilm(id, userId);
+    }
+
     public Optional<Film> getFilm(String id) {
         return filmDB.getFilm(Integer.valueOf(id));
     }
