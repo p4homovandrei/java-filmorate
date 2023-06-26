@@ -20,6 +20,7 @@ import ru.yandex.practicum.filmorate.model.attribute.Mpa;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -40,8 +41,87 @@ class FilmorateApplicationTests {
     @Test
     void simpleTest() throws Exception {
         LocalDate date = LocalDate.of(2012, 12, 12);
-        Film film = new Film(1, "sd", "asd", date, 230L, new LinkedList<Genre>(), new Mpa(1), 1, new LinkedList<Integer>());
-        mockMvc.perform(MockMvcRequestBuilders.post("/films").content(asJsonString(film)).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().is2xxSuccessful());
+        Film film = new Film(1, "sd", "asd", date, 230L,
+                new LinkedList<Genre>(), new Mpa(1), 1, new LinkedList<Integer>());
+        mockMvc.perform(MockMvcRequestBuilders.post("/films").
+                content(asJsonString(film)).contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void testCreateUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .content("{\n" +
+                                "\"login\": \"dolore\",\n" +
+                                "\"name\": \"Nick Name\",\n" +
+                                "\"email\": \"mail@mail.ru\",\n" +
+                                "\"birthday\": \"1946-08-20\"\n" +
+                                "}").contentType(MediaType.APPLICATION_JSON).
+                        accept(MediaType.APPLICATION_JSON)).
+                andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void testUpdateUser() throws Exception {
+        testCreateUser();
+        mockMvc.perform(MockMvcRequestBuilders.put("/users")
+                        .content("{\n" +
+                                "\"id\": \"1\",\n" +
+                                "\"login\": \"doloreUpdate\",\n" +
+                                "\"name\": \"est adipisicing\",\n" +
+                                "\"email\": \"mail@yandex.ru\",\n" +
+                                "\"birthday\": \"1976-09-20\"\n" +
+                                "}").contentType(MediaType.APPLICATION_JSON).
+                        accept(MediaType.APPLICATION_JSON)).
+                andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void testGetUser() throws Exception {
+        testCreateUser();
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/1")).
+                andExpect(status().is2xxSuccessful()).
+                andExpect(jsonPath("$.id").isNumber()).
+                andExpect(jsonPath("$.name").isString());
+    }
+
+    @Test
+    void testCreateFilm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/films")
+                        .content("{\n" +
+                                "\"name\": \"nisi eiusmod\",\n" +
+                                "\"description\": \"adipisicing\",\n" +
+                                "\"releaseDate\": \"1967-03-25\",\n" +
+                                "\"duration\": 100,\n" +
+                                "\"mpa\": { \"id\": 1}\n" +
+                                "}").contentType(MediaType.APPLICATION_JSON).
+                        accept(MediaType.APPLICATION_JSON)).
+                andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void testUpdateFilm() throws Exception {
+        testCreateFilm();
+        mockMvc.perform(MockMvcRequestBuilders.put("/films")
+                        .content("{\n" +
+                                "\"id\": \"1\",\n" +
+                                "\"name\": \"Film Updated\",\n" +
+                                "\"description\": \"New film update decription\",\n" +
+                                "\"releaseDate\": \"1989-04-17\",\n" +
+                                "\"duration\": 190,\n" +
+                                "\"mpa\": { \"id\": 2}\n" +
+                                "}").contentType(MediaType.APPLICATION_JSON).
+                        accept(MediaType.APPLICATION_JSON)).
+                andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void testGetFilm() throws Exception {
+        testCreateFilm();
+        mockMvc.perform(MockMvcRequestBuilders.get("/films/1")).
+                andExpect(status().is2xxSuccessful()).
+                andExpect(jsonPath("$.id").isNumber()).
+                andExpect(jsonPath("$.name").isString());
     }
 
     public static String asJsonString(final Object obj) {
