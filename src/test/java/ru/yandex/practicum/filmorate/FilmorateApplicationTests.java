@@ -43,8 +43,8 @@ class FilmorateApplicationTests {
         LocalDate date = LocalDate.of(2012, 12, 12);
         Film film = new Film(1, "sd", "asd", date, 230L,
                 new LinkedList<Genre>(), new Mpa(1), 1, new LinkedList<Integer>());
-        mockMvc.perform(MockMvcRequestBuilders.post("/films").
-                content(asJsonString(film)).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/films")
+                .content(asJsonString(film)).contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().is2xxSuccessful());
     }
 
@@ -56,9 +56,9 @@ class FilmorateApplicationTests {
                                 "\"name\": \"Nick Name\",\n" +
                                 "\"email\": \"mail@mail.ru\",\n" +
                                 "\"birthday\": \"1946-08-20\"\n" +
-                                "}").contentType(MediaType.APPLICATION_JSON).
-                        accept(MediaType.APPLICATION_JSON)).
-                andExpect(status().is2xxSuccessful());
+                                "}").contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
@@ -71,18 +71,18 @@ class FilmorateApplicationTests {
                                 "\"name\": \"est adipisicing\",\n" +
                                 "\"email\": \"mail@yandex.ru\",\n" +
                                 "\"birthday\": \"1976-09-20\"\n" +
-                                "}").contentType(MediaType.APPLICATION_JSON).
-                        accept(MediaType.APPLICATION_JSON)).
-                andExpect(status().is2xxSuccessful());
+                                "}").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     void testGetUser() throws Exception {
         testCreateUser();
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/1")).
-                andExpect(status().is2xxSuccessful()).
-                andExpect(jsonPath("$.id").isNumber()).
-                andExpect(jsonPath("$.name").isString());
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/1"))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(jsonPath("$.id").isNumber())
+        .andExpect(jsonPath("$.name").isString());
     }
 
     @Test
@@ -94,9 +94,9 @@ class FilmorateApplicationTests {
                                 "\"releaseDate\": \"1967-03-25\",\n" +
                                 "\"duration\": 100,\n" +
                                 "\"mpa\": { \"id\": 1}\n" +
-                                "}").contentType(MediaType.APPLICATION_JSON).
-                        accept(MediaType.APPLICATION_JSON)).
-                andExpect(status().is2xxSuccessful());
+                                "}").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
@@ -110,18 +110,18 @@ class FilmorateApplicationTests {
                                 "\"releaseDate\": \"1989-04-17\",\n" +
                                 "\"duration\": 190,\n" +
                                 "\"mpa\": { \"id\": 2}\n" +
-                                "}").contentType(MediaType.APPLICATION_JSON).
-                        accept(MediaType.APPLICATION_JSON)).
-                andExpect(status().is2xxSuccessful());
+                                "}").contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     void testGetFilm() throws Exception {
         testCreateFilm();
-        mockMvc.perform(MockMvcRequestBuilders.get("/films/1")).
-                andExpect(status().is2xxSuccessful()).
-                andExpect(jsonPath("$.id").isNumber()).
-                andExpect(jsonPath("$.name").isString());
+        mockMvc.perform(MockMvcRequestBuilders.get("/films/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").isString());
     }
 
     public static String asJsonString(final Object obj) {
