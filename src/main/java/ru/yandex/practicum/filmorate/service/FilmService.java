@@ -3,52 +3,67 @@ package ru.yandex.practicum.filmorate.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.attribute.Genre;
+import ru.yandex.practicum.filmorate.model.attribute.Mpa;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
-
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmService {
-    FilmStorage fstorage;
+    FilmStorage filmDB;
 
-    UserService ustorage;
+    UserService userDB;
 
     @Autowired
-    public FilmService(FilmStorage fstorage, UserService ustorage) {
-        this.fstorage = fstorage;
-        this.ustorage = ustorage;
+    public FilmService(FilmStorage filmDB, UserService userDB) {
+        this.filmDB = filmDB;
+        this.userDB = userDB;
     }
 
-    public Film addFilm(Film film) {
-        return fstorage.saveFilm(film);
+    public Optional<Film> addFilm(Film film) {
+        return filmDB.saveFilm(film);
     }
 
-    public Film updateFilm(Film film) {
-        return fstorage.updateFilm(film);
-
+    public Optional<Film> updateFilm(Film film) {
+        return filmDB.updateFilm(film);
     }
 
     public List<Film> getAllFilms() {
-        return fstorage.getAllFilms();
+        return filmDB.getAllFilms();
     }
 
     public void likeFilm(String id, String userId) {
-        ustorage.getUser(userId);
-        Film film = fstorage.getFilm(Integer.valueOf(id));
-        film.getIdUsersLike().add(Integer.valueOf(userId));
+        userDB.getUser(userId);
+        filmDB.likeFilm(id, userId);
     }
 
     public void unLikeFilm(String id, String userId) {
-        ustorage.getUser(userId);
-        Film film = fstorage.getFilm(Integer.valueOf(id));
-        film.getIdUsersLike().remove(Integer.valueOf(userId));
+        userDB.getUser(userId);
+        filmDB.unlikeFilm(id, userId);
     }
 
-    public Film getFilm(String id) {
-        return fstorage.getFilm(Integer.valueOf(id));
+    public Optional<Film> getFilm(String id) {
+        return filmDB.getFilm(Integer.valueOf(id));
     }
 
-    public Set<Film> popularFilm(String count) {
-        return fstorage.getPopularFilms(count);
+    public List<Optional<Film>> popularFilm(String count) {
+        return filmDB.getPopularFilms(count);
+    }
+
+    public Mpa getMPA(String id) {
+        return filmDB.getMpa(id);
+    }
+
+    public List<Mpa> getAllMPA() {
+        return filmDB.getAllMpa();
+    }
+
+    public Genre getGenre(String id) {
+        return filmDB.getGenre(id);
+    }
+
+    public List<Genre> getAllGenre() {
+        return filmDB.getAllGenre();
     }
 }
