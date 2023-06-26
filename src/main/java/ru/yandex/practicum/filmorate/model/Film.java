@@ -43,7 +43,7 @@ public class Film implements Comparable {
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
-        Genres = genres;
+        this.genres = genres;
         this.mpa = mpa;
         this.rate = rate;
         this.idUsersLike = idUsersLike;
